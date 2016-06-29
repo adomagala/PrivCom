@@ -24,12 +24,24 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
         </dependency>
     </dependencies>
 
@@ -45,7 +57,7 @@
                     <exclude>*</exclude>
                 </excludes>
                 <includes>
-                    <include>hibernate.cfg.xml</include>
+                    <include>springContext.xml</include>
                 </includes>
             </resource>
         </resources>

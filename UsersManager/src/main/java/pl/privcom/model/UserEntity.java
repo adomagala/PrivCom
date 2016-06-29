@@ -1,20 +1,22 @@
 package pl.privcom.model;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 import java.util.Collection;
 
 /**
- * Created by Aleksander Domagała on 28/06/2016.
+ * Created by Aleksander Domagała on 29/06/2016.
  */
 @Entity
 @Table(name = "users", schema = "public", catalog = "priv_com")
-public class UsersEntity {
+public class UserEntity {
     private Integer id;
     private String login;
     private String firstName;
     private String lastName;
     private String password;
-    private Collection<UsersPrivilegesEntity> usersPrivilegesById;
+    private String mail;
+    private Collection<UserPrivilegesEntity> userPrivilegesById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -66,18 +68,29 @@ public class UsersEntity {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "mail", nullable = false, length = 128)
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UsersEntity that = (UsersEntity) o;
+        UserEntity that = (UserEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (mail != null ? !mail.equals(that.mail) : that.mail != null) return false;
 
         return true;
     }
@@ -89,15 +102,17 @@ public class UsersEntity {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (mail != null ? mail.hashCode() : 0);
+
         return result;
     }
 
     @OneToMany(mappedBy = "usersByUserId")
-    public Collection<UsersPrivilegesEntity> getUsersPrivilegesById() {
-        return usersPrivilegesById;
+    public Collection<UserPrivilegesEntity> getUserPrivilegesById() {
+        return userPrivilegesById;
     }
 
-    public void setUsersPrivilegesById(Collection<UsersPrivilegesEntity> usersPrivilegesById) {
-        this.usersPrivilegesById = usersPrivilegesById;
+    public void setUserPrivilegesById(Collection<UserPrivilegesEntity> userPrivilegesById) {
+        this.userPrivilegesById = userPrivilegesById;
     }
 }

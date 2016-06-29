@@ -1,10 +1,11 @@
 package pl.privcom.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * Created by Aleksander Domagała on 28/06/2016.
+ * Created by Aleksander Domagała on 29/06/2016.
  */
 @Entity
 @Table(name = "privileges", schema = "public", catalog = "priv_com")
@@ -12,7 +13,7 @@ public class PrivilegesEntity {
     private Integer id;
     private String name;
     private String description;
-    private Collection<UsersPrivilegesEntity> usersPrivilegesById;
+    private Collection<UserPrivilegesEntity> userPrivilegesById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -67,11 +68,11 @@ public class PrivilegesEntity {
     }
 
     @OneToMany(mappedBy = "privilegesByPrivilegeId")
-    public Collection<UsersPrivilegesEntity> getUsersPrivilegesById() {
-        return usersPrivilegesById;
+    public Collection<UserPrivilegesEntity> getUserPrivilegesById() {
+        return userPrivilegesById;
     }
 
-    public void setUsersPrivilegesById(Collection<UsersPrivilegesEntity> usersPrivilegesById) {
-        this.usersPrivilegesById = usersPrivilegesById;
+    public void setUserPrivilegesById(Collection<UserPrivilegesEntity> userPrivilegesById) {
+        this.userPrivilegesById = userPrivilegesById;
     }
 }

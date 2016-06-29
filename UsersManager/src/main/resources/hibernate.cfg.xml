@@ -8,10 +8,6 @@
     <property name="connection.driver_class">org.postgresql.Driver</property>
     <property name="connection.username">${connection.username}</property>
     <property name="connection.password">${connection.password}</property>
-    <mapping class="pl.privcom.model.UsersEntity"/>
-    <mapping class="pl.privcom.model.PrivilegesEntity"/>
-    <mapping class="pl.privcom.model.UsersPrivilegesEntity"/>
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hbm2ddl.auto">update</property> -->
+
   </session-factory>
 </hibernate-configuration>
