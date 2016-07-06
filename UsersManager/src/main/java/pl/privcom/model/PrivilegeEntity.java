@@ -1,7 +1,6 @@
 package pl.privcom.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -9,11 +8,11 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "privileges", schema = "public", catalog = "priv_com")
-public class PrivilegesEntity {
+public class PrivilegeEntity {
     private Integer id;
     private String name;
     private String description;
-    private Collection<UserPrivilegesEntity> userPrivilegesById;
+    private Collection<UserPrivilegeEntity> userPrivilegesById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -50,7 +49,7 @@ public class PrivilegesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PrivilegesEntity that = (PrivilegesEntity) o;
+        PrivilegeEntity that = (PrivilegeEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -68,11 +67,11 @@ public class PrivilegesEntity {
     }
 
     @OneToMany(mappedBy = "privilegesByPrivilegeId")
-    public Collection<UserPrivilegesEntity> getUserPrivilegesById() {
+    public Collection<UserPrivilegeEntity> getUserPrivilegesById() {
         return userPrivilegesById;
     }
 
-    public void setUserPrivilegesById(Collection<UserPrivilegesEntity> userPrivilegesById) {
+    public void setUserPrivilegesById(Collection<UserPrivilegeEntity> userPrivilegesById) {
         this.userPrivilegesById = userPrivilegesById;
     }
 }

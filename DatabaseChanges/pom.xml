@@ -29,12 +29,20 @@
         </profile>
         <profile>
             <id>db-prod</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
-                <liquibase-properties-file>src/main/conf/prodLiquibaseConnection.properties
-                </liquibase-properties-file>
+                <liquibase-properties-file>src/main/conf/prodLiquibaseConnection.properties</liquibase-properties-file>
+            </properties>
+        </profile>
+        <profile>
+            <id>create_objects</id>
+            <properties>
+                <operation-type>createObjects</operation-type>
+            </properties>
+        </profile>
+        <profile>
+            <id>create_test_data</id>
+            <properties>
+                <operation-type>createTestData</operation-type>
             </properties>
         </profile>
     </profiles>
@@ -46,9 +54,9 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <configuration>
                     <propertyFile>${liquibase-properties-file}</propertyFile>
+                    <changeLogFile>src/main/liquibase/${operation-type}/all.xml</changeLogFile>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

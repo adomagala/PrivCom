@@ -7,11 +7,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user_privileges", schema = "public", catalog = "priv_com")
-public class UserPrivilegesEntity {
+public class UserPrivilegeEntity {
     private Integer id;
     private String level;
     private UserEntity usersByUserId;
-    private PrivilegesEntity privilegesByPrivilegeId;
+    private PrivilegeEntity privilegesByPrivilegeId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -38,7 +38,7 @@ public class UserPrivilegesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserPrivilegesEntity that = (UserPrivilegesEntity) o;
+        UserPrivilegeEntity that = (UserPrivilegeEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (level != null ? !level.equals(that.level) : that.level != null) return false;
@@ -65,11 +65,11 @@ public class UserPrivilegesEntity {
 
     @ManyToOne
     @JoinColumn(name = "privilege_id", referencedColumnName = "id", nullable = false)
-    public PrivilegesEntity getPrivilegesByPrivilegeId() {
+    public PrivilegeEntity getPrivilegesByPrivilegeId() {
         return privilegesByPrivilegeId;
     }
 
-    public void setPrivilegesByPrivilegeId(PrivilegesEntity privilegesByPrivilegeId) {
+    public void setPrivilegesByPrivilegeId(PrivilegeEntity privilegesByPrivilegeId) {
         this.privilegesByPrivilegeId = privilegesByPrivilegeId;
     }
 }

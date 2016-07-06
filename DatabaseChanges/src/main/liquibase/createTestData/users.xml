@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="adomagala" id="createTestData-users">
+        <insert tableName="users">
+            <column name="id" valueSequenceNext="users_id_seq"/>
+            <column name="login" value="test_1"/>
+            <column name="first_name" value="Jan"/>
+            <column name="last_name" value="Żółć"/>
+            <column name="password" value="123qweRTY%$*"/>
+            <column name="mail" value="jan@test.pl"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

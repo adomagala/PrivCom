@@ -1,7 +1,6 @@
 package pl.privcom.model;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
 import java.util.Collection;
 
 /**
@@ -16,10 +15,12 @@ public class UserEntity {
     private String lastName;
     private String password;
     private String mail;
-    private Collection<UserPrivilegesEntity> userPrivilegesById;
+    private Collection<UserPrivilegeEntity> userPrivilegesById;
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERS_ID_SEQ")
+    @SequenceGenerator(name="USERS_ID_SEQ", sequenceName="users_id_seq", allocationSize=1)
     public Integer getId() {
         return id;
     }
@@ -108,11 +109,11 @@ public class UserEntity {
     }
 
     @OneToMany(mappedBy = "usersByUserId")
-    public Collection<UserPrivilegesEntity> getUserPrivilegesById() {
+    public Collection<UserPrivilegeEntity> getUserPrivilegesById() {
         return userPrivilegesById;
     }
 
-    public void setUserPrivilegesById(Collection<UserPrivilegesEntity> userPrivilegesById) {
+    public void setUserPrivilegesById(Collection<UserPrivilegeEntity> userPrivilegesById) {
         this.userPrivilegesById = userPrivilegesById;
     }
 }
