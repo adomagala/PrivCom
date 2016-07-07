@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet author="adomagala" id="createSequences-privileges">
+    <changeSet author="adomagala" id="createSequences-users_id_seq">
         <createSequence sequenceName="users_id_seq"
                         cycle="false"
                         incrementBy="1"

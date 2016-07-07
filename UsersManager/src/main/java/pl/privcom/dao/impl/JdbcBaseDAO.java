@@ -1,5 +1,6 @@
 package pl.privcom.dao.impl;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class JdbcBaseDAO {
 
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -16,6 +17,10 @@ public abstract class JdbcBaseDAO {
     }
 
     protected Object getOneElement(String query, String key, Object value) {
-        return sessionFactory.getCurrentSession().createQuery(query).setParameter(key, value).uniqueResult();
+        return getCurrentSession().createQuery(query).setParameter(key, value).uniqueResult();
+    }
+
+    protected Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
     }
 }

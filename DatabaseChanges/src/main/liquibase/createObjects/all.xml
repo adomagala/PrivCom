@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <include file="src/main/liquibase/createObjects/sequences/usersIdSeq.xml"/>
+
     <include file="src/main/liquibase/createObjects/tables/users.xml"/>
     <include file="src/main/liquibase/createObjects/tables/privileges.xml"/>
     <include file="src/main/liquibase/createObjects/tables/userPrivileges.xml"/>
-
-    <include file="src/main/liquibase/createObjects/sequences/usersIdSeq.xml"/>
 </databaseChangeLog>
