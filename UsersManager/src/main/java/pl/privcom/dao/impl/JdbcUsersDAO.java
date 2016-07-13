@@ -11,6 +11,10 @@ import pl.privcom.model.UserEntity;
 @Repository
 public class JdbcUsersDAO extends JdbcBaseDAO implements UsersDAO {
 
+    public UserEntity getUserById(final Integer id) {
+        return (UserEntity) getOneElement("from UserEntity where id=:id", "id", id);
+    }
+
     public UserEntity getUserByLogin(final String login) {
         return (UserEntity) getOneElement("from UserEntity where login=:login", "login", login);
 

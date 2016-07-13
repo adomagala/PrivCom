@@ -1,11 +1,9 @@
 package pl.privcom.dao.impl;
 
-import static org.junit.Assert.*;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,21 +14,20 @@ import pl.privcom.model.UserEntity;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/springContext-test.xml"})
-public class JdbcUsersDAOTestGetUser {
+public class JdbcUsersDAOTestGetUser extends JdbcUsersDAOTestBase {
     private static final Integer ID = 1;
     private static final String LOGIN = "test_1";
-    private static final String FIRST_NAME = "Jan";
-    private static final String LAST_NAME = "Żółć";
-    private static final String PASSWORD = "123qweRTY%$*";
     private static final String MAIL = "jan@test.pl";
 
-    private JdbcUsersDAO jdbcUsersDAO;
-
-    private UserEntity user;
-
-    @Autowired
-    public void setJdbcUsersDAO(JdbcUsersDAO jdbcUsersDAO) {
-        this.jdbcUsersDAO = jdbcUsersDAO;
+    @Before
+    public void createExpectedUser() {
+        expectedUser = new UserEntity();
+        expectedUser.setId(ID);
+        expectedUser.setLogin(LOGIN);
+        expectedUser.setFirstName("Jan");
+        expectedUser.setLastName("Żółć");
+        expectedUser.setPassword("123qweRTY%$*");
+        expectedUser.setMail(MAIL);
     }
 
     @Test
@@ -38,7 +35,7 @@ public class JdbcUsersDAOTestGetUser {
     public void getUserByLoginTest() {
         getUserByLogin();
 
-        validateUser();
+        assertEqualsTestedUserToExpectedUser();
     }
 
     @Test
@@ -46,23 +43,26 @@ public class JdbcUsersDAOTestGetUser {
     public void getUserByMailTest() {
         getUserByMail();
 
-        validateUser();
+        assertEqualsTestedUserToExpectedUser();
+    }
+
+    @Test
+    @Transactional(readOnly = true)
+    public void getUserByIdTest() {
+        getUserById();
+
+        assertEqualsTestedUserToExpectedUser();
     }
 
     private void getUserByLogin() {
-        user = jdbcUsersDAO.getUserByLogin(LOGIN);
+        testedUser = jdbcUsersDAO.getUserByLogin(LOGIN);
     }
 
     private void getUserByMail() {
-        user = jdbcUsersDAO.getUserByMail(MAIL);
+        testedUser = jdbcUsersDAO.getUserByMail(MAIL);
     }
 
-    private void validateUser() {
-        assertEquals(ID, user.getId());
-        assertEquals(LOGIN, user.getLogin());
-        assertEquals(FIRST_NAME, user.getFirstName());
-        assertEquals(LAST_NAME, user.getLastName());
-        assertEquals(PASSWORD, user.getPassword());
-        assertEquals(MAIL, user.getMail());
+    private void getUserById() {
+        testedUser = jdbcUsersDAO.getUserById(ID);
     }
 }

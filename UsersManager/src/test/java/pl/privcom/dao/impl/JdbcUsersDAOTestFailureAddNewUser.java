@@ -16,7 +16,7 @@ import pl.privcom.model.UserEntity;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/springContext-test.xml"})
-public class JdbcUsersDAOTestFailureAddNewUser {
+public class JdbcUsersDAOTestFailureAddNewUser extends JdbcUsersDAOTestBase {
     private static final Integer ID = 1;
     private static final String LOGIN = "test_1";
     private static final String FIRST_NAME = "Jan";
@@ -24,14 +24,7 @@ public class JdbcUsersDAOTestFailureAddNewUser {
     private static final String PASSWORD = "123qweRTY%$*";
     private static final String MAIL = "jan@test.pl";
 
-    private JdbcUsersDAO jdbcUsersDAO;
-
     private UserEntity userWhichExistInDatabase;
-
-    @Autowired
-    public void setJdbcUsersDAO(JdbcUsersDAO jdbcUsersDAO) {
-        this.jdbcUsersDAO = jdbcUsersDAO;
-    }
 
     @Before
     public void initializeTestElements() {
@@ -41,8 +34,8 @@ public class JdbcUsersDAOTestFailureAddNewUser {
     @Test(expected = UserExistInDatabase.class)
     @Transactional
     @Rollback
-    public void failureAddedUserToDatabase() throws UserExistInDatabase {
-        jdbcUsersDAO.addNewUser(userWhichExistInDatabase);
+    public void testFailureAddedUserWithAllVariablesToDatabase() throws UserExistInDatabase {
+        addNewUser();
     }
 
     private void createUserWhichExistInDatabase() {
@@ -53,5 +46,9 @@ public class JdbcUsersDAOTestFailureAddNewUser {
         userWhichExistInDatabase.setLastName(LAST_NAME);
         userWhichExistInDatabase.setMail(MAIL);
         userWhichExistInDatabase.setPassword(PASSWORD);
+    }
+
+    private void addNewUser() throws UserExistInDatabase {
+        jdbcUsersDAO.addNewUser(userWhichExistInDatabase);
     }
 }
