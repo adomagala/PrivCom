@@ -1,22 +1,20 @@
-package pl.privcom.dao.impl;
+package pl.privcom.user;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import pl.privcom.dao.exceptions.UserExistInDatabase;
-import pl.privcom.model.UserEntity;
+import pl.privcom.infrastructure.exceptions.UserExistInDatabase;
 
 /**
  * Created by Aleksander Domagała on 07/07/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/springContext-test.xml"})
-public class JdbcUsersDAOTestFailureAddNewUser extends JdbcUsersDAOTestBase {
+public class FailureAddNewUserToDBTest extends UsersEqualsTestBase {
     private static final Integer ID = 1;
     private static final String LOGIN = "test_1";
     private static final String FIRST_NAME = "Jan";
@@ -27,18 +25,7 @@ public class JdbcUsersDAOTestFailureAddNewUser extends JdbcUsersDAOTestBase {
     private UserEntity userWhichExistInDatabase;
 
     @Before
-    public void initializeTestElements() {
-        createUserWhichExistInDatabase();
-    }
-
-    @Test(expected = UserExistInDatabase.class)
-    @Transactional
-    @Rollback
-    public void testFailureAddedUserWithAllVariablesToDatabase() throws UserExistInDatabase {
-        addNewUser();
-    }
-
-    private void createUserWhichExistInDatabase() {
+    public void createUserWhichExistInDatabase() {
         userWhichExistInDatabase = new UserEntity();
         userWhichExistInDatabase.setId(ID);
         userWhichExistInDatabase.setLogin(LOGIN);
@@ -48,7 +35,14 @@ public class JdbcUsersDAOTestFailureAddNewUser extends JdbcUsersDAOTestBase {
         userWhichExistInDatabase.setPassword(PASSWORD);
     }
 
+    @Test(expected = UserExistInDatabase.class)
+    @Transactional
+    @Rollback
+    public void testFailureAddedUserWithAllVariablesToDatabase() throws UserExistInDatabase {
+        addNewUser();
+    }
+
     private void addNewUser() throws UserExistInDatabase {
-        jdbcUsersDAO.addNewUser(userWhichExistInDatabase);
+        usersDAO.addNewUser(userWhichExistInDatabase);
     }
 }

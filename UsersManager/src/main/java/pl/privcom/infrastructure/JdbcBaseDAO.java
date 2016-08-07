@@ -1,4 +1,4 @@
-package pl.privcom.dao.impl;
+package pl.privcom.infrastructure;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,7 +12,7 @@ public abstract class JdbcBaseDAO {
     protected SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public JdbcBaseDAO(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

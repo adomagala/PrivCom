@@ -1,4 +1,4 @@
-package pl.privcom.model;
+package pl.privcom.user;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -18,9 +18,6 @@ public class UserEntity {
     private Collection<UserPrivilegeEntity> userPrivilegesById;
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERS_ID_SEQ")
-    @SequenceGenerator(name="USERS_ID_SEQ", sequenceName="users_id_seq", allocationSize=1)
     public Integer getId() {
         return id;
     }
@@ -29,8 +26,6 @@ public class UserEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "login", nullable = false, length = 64)
     public String getLogin() {
         return login;
     }
@@ -59,8 +54,6 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "password", nullable = false, length = 64)
     public String getPassword() {
         return password;
     }
@@ -69,8 +62,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "mail", nullable = false, length = 128)
     public String getMail() {
         return mail;
     }

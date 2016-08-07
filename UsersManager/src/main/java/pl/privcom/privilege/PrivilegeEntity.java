@@ -1,4 +1,6 @@
-package pl.privcom.model;
+package pl.privcom.privilege;
+
+import pl.privcom.user.UserPrivilegeEntity;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -15,7 +17,6 @@ public class PrivilegeEntity {
     private Collection<UserPrivilegeEntity> userPrivilegesById;
 
     @Id
-    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -24,8 +25,6 @@ public class PrivilegeEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 32)
     public String getName() {
         return name;
     }
@@ -34,8 +33,6 @@ public class PrivilegeEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "description", nullable = false, length = 1024)
     public String getDescription() {
         return description;
     }

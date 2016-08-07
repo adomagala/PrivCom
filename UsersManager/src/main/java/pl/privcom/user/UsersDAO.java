@@ -1,15 +1,19 @@
-package pl.privcom.dao.impl;
+package pl.privcom.user;
 
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import pl.privcom.dao.UsersDAO;
-import pl.privcom.dao.exceptions.UserExistInDatabase;
-import pl.privcom.model.UserEntity;
+import pl.privcom.infrastructure.exceptions.UserExistInDatabase;
+import pl.privcom.infrastructure.JdbcBaseDAO;
 
 /**
  * Created by Aleksander Domagała on 29/06/2016.
  */
 @Repository
-public class JdbcUsersDAO extends JdbcBaseDAO implements UsersDAO {
+public class UsersDAO extends JdbcBaseDAO {
+
+    public UsersDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
 
     public UserEntity getUserById(final Integer id) {
         return (UserEntity) getOneElement("from UserEntity where id=:id", "id", id);

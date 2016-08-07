@@ -8,7 +8,7 @@
 
     <context:component-scan base-package="pl.privcom"/>
 
-    <context:property-placeholder location="classpath:dbConnection-test.properties" ignore-unresolvable="true" />
+    <context:property-placeholder location="classpath:dbConnection-test.properties" ignore-unresolvable="true"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver"/>
@@ -19,7 +19,12 @@
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="pl.privcom.model"/>
+        <property name="packagesToScan">
+            <list>
+                <value>pl.privcom.user</value>
+                <value>pl.privcom.privilege</value>
+            </list>
+        </property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

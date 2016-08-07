@@ -1,20 +1,18 @@
-package pl.privcom.dao.impl;
+package pl.privcom.user;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import pl.privcom.model.UserEntity;
 
 /**
  * Created by Aleksander Domagała on 05/07/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/springContext-test.xml"})
-public class JdbcUsersDAOTestGetUser extends JdbcUsersDAOTestBase {
+public class GetUserFromDBTest extends UsersEqualsTestBase {
     private static final Integer ID = 1;
     private static final String LOGIN = "test_1";
     private static final String MAIL = "jan@test.pl";
@@ -32,7 +30,7 @@ public class JdbcUsersDAOTestGetUser extends JdbcUsersDAOTestBase {
 
     @Test
     @Transactional(readOnly = true)
-    public void getUserByLoginTest() {
+    public void testGetUserByLogin() {
         getUserByLogin();
 
         assertEqualsTestedUserToExpectedUser();
@@ -40,7 +38,7 @@ public class JdbcUsersDAOTestGetUser extends JdbcUsersDAOTestBase {
 
     @Test
     @Transactional(readOnly = true)
-    public void getUserByMailTest() {
+    public void testGetUserByMail() {
         getUserByMail();
 
         assertEqualsTestedUserToExpectedUser();
@@ -48,21 +46,21 @@ public class JdbcUsersDAOTestGetUser extends JdbcUsersDAOTestBase {
 
     @Test
     @Transactional(readOnly = true)
-    public void getUserByIdTest() {
+    public void testGetUserById() {
         getUserById();
 
         assertEqualsTestedUserToExpectedUser();
     }
 
     private void getUserByLogin() {
-        testedUser = jdbcUsersDAO.getUserByLogin(LOGIN);
+        testedUser = usersDAO.getUserByLogin(LOGIN);
     }
 
     private void getUserByMail() {
-        testedUser = jdbcUsersDAO.getUserByMail(MAIL);
+        testedUser = usersDAO.getUserByMail(MAIL);
     }
 
     private void getUserById() {
-        testedUser = jdbcUsersDAO.getUserById(ID);
+        testedUser = usersDAO.getUserById(ID);
     }
 }

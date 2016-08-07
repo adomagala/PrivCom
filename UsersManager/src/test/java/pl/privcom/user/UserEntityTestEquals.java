@@ -1,4 +1,4 @@
-package pl.privcom.model;
+package pl.privcom.user;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +23,16 @@ public class UserEntityTestEquals {
     @Before
     public void initializeTestElements() {
         createModelUser();
+    }
+
+    private void createModelUser() {
+        modelUser = new UserEntity();
+        modelUser.setId(ID);
+        modelUser.setLogin(LOGIN);
+        modelUser.setFirstName(FIRST_NAME);
+        modelUser.setLastName(LAST_NAME);
+        modelUser.setPassword(PASSWORD);
+        modelUser.setMail(MAIL);
     }
 
     @Test
@@ -87,14 +97,14 @@ public class UserEntityTestEquals {
         checkUsersEqual();
     }
 
-    private void createModelUser() {
-        modelUser = new UserEntity();
-        modelUser.setId(ID);
-        modelUser.setLogin(LOGIN);
-        modelUser.setFirstName(FIRST_NAME);
-        modelUser.setLastName(LAST_NAME);
-        modelUser.setPassword(PASSWORD);
-        modelUser.setMail(MAIL);
+    private void createTestedUserWithAllCorrectData() {
+        createEmptyTestedUser();
+        addCorrectIdToTestedUser();
+        addCorrectLoginToTestedUser();
+        addCorrectFirstNameToTestedUser();
+        addCorrectLastNameToTestedUser();
+        addCorrectPasswordToTestedUser();
+        addCorrectMaiToTestedUser();
     }
 
     private void createEmptyTestedUser() {
@@ -123,16 +133,6 @@ public class UserEntityTestEquals {
 
     private void addCorrectMaiToTestedUser() {
         testedUser.setMail(MAIL);
-    }
-
-    private void createTestedUserWithAllCorrectData() {
-        createEmptyTestedUser();
-        addCorrectIdToTestedUser();
-        addCorrectLoginToTestedUser();
-        addCorrectFirstNameToTestedUser();
-        addCorrectLastNameToTestedUser();
-        addCorrectPasswordToTestedUser();
-        addCorrectMaiToTestedUser();
     }
 
     private void checkUsersNotEqual() {

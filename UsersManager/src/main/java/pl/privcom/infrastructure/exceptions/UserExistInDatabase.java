@@ -1,6 +1,6 @@
-package pl.privcom.dao.exceptions;
+package pl.privcom.infrastructure.exceptions;
 
-import pl.privcom.model.UserEntity;
+import pl.privcom.user.UserEntity;
 
 /**
  * Created by Aleksander Domagała on 07/07/2016.

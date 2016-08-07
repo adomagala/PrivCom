@@ -1,4 +1,4 @@
-package pl.privcom.model;
+package pl.privcom.user;
 
 import static org.junit.Assert.assertTrue;
 

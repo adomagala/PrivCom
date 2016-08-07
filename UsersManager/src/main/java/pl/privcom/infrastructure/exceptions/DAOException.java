@@ -1,4 +1,4 @@
-package pl.privcom.dao.exceptions;
+package pl.privcom.infrastructure.exceptions;
 
 /**
  * Created by Aleksander Domagała on 07/07/2016.

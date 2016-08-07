@@ -1,4 +1,4 @@
-package pl.privcom.dao.impl;
+package pl.privcom.user;
 
 import org.hibernate.SessionFactory;
 import org.junit.Before;
@@ -9,8 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import pl.privcom.dao.exceptions.UserExistInDatabase;
-import pl.privcom.model.UserEntity;
+import pl.privcom.infrastructure.exceptions.UserExistInDatabase;
 
 import java.math.BigInteger;
 
@@ -19,21 +18,17 @@ import java.math.BigInteger;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/springContext-test.xml"})
-public class JdbcUsersDAOTestCorrectAddNewUser extends JdbcUsersDAOTestBase {
+public class CorrectAddNewUserToDBTest extends UsersEqualsTestBase {
+    @Autowired
     private SessionFactory sessionFactory;
 
     private Integer availableUserId;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Before
     public void initializeTestElements() {
-        getNextAvailableValueFromSequences();
+        getNextAvailableValueFromSequence();
 
-        createUserExpected();
+        createExpectedUser();
     }
 
     @Test
@@ -47,14 +42,18 @@ public class JdbcUsersDAOTestCorrectAddNewUser extends JdbcUsersDAOTestBase {
         assertEqualsTestedUserToExpectedUser();
     }
 
-    private void getNextAvailableValueFromSequences() {
-        BigInteger lastValue = (BigInteger) sessionFactory.getCurrentSession()
-                .createSQLQuery("SELECT last_value FROM users_id_seq").getSingleResult();
+    private void getNextAvailableValueFromSequence() {
+        BigInteger lastValue = getCurentValueFromSequence();
 
         availableUserId = lastValue.intValue() + 1;
     }
 
-    private void createUserExpected() {
+    private BigInteger getCurentValueFromSequence() {
+        return (BigInteger) sessionFactory.getCurrentSession()
+                .createSQLQuery("SELECT last_value FROM users_id_seq").getSingleResult();
+    }
+
+    private void createExpectedUser() {
         expectedUser = new UserEntity();
         expectedUser.setId(availableUserId);
         expectedUser.setLogin("test_2");
@@ -65,7 +64,7 @@ public class JdbcUsersDAOTestCorrectAddNewUser extends JdbcUsersDAOTestBase {
     }
 
     private void insertNewUserToDatabase() throws UserExistInDatabase {
-        jdbcUsersDAO.addNewUser(expectedUser);
+        usersDAO.addNewUser(expectedUser);
     }
 
     private void getUserFromDatabase() {
